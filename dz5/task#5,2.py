@@ -1,3 +1,5 @@
+# сама функция что удаляет слова в скобках
+
 def remove_brackets(text):
     while '(' in text:
         start = text.index('(')
@@ -6,6 +8,8 @@ def remove_brackets(text):
     return text
 
 string = input('Введіть рядок: ')
+
+# текст что ввел пользователь только без слов в скобках
 
 new_string = remove_brackets(string)
 
