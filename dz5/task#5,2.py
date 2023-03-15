@@ -11,7 +11,6 @@ def remove_brackets(text):
         text = text[:start] + text[end + 1:]
     return text
 
-
 string = input('Введіть рядок: ')
 
 # текст что ввел пользователь только без слов в скобках
