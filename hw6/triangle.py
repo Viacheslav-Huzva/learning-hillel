@@ -1,3 +1,4 @@
+# говорим user ввести углы
 import math
 
 
