@@ -22,6 +22,7 @@ def calculate_area(a, b, c):
     p = calculate_perimeter(a, b, c) / 2
     return math.sqrt(p * (p - a) * (p - b) * (p - c))
 
+# говорим user ввести углы трикутника. если такой трикутник есть то идем дальше по
 
 if __name__ == '__main__':
     a = read_positive_number("Введіть першу сторону трикутника: ")
