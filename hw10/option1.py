@@ -1,47 +1,57 @@
-import os
+import re
 
+NOTES_FILE = "notes.txt"
 
-# Функція зчитування нотаток з файлу
-def read_notes():
-    filename = "notes.txt"
+def save_notes(notes):
+    with open(NOTES_FILE, "a") as f:
+        for note in notes:
+            f.write(note + "\n")
+
+def load_notes():
     notes = []
-    if os.path.exists(filename):
-        with open(filename, "r") as file:
-            notes = [line.strip() for line in file.readlines()]
+    try:
+        with open(NOTES_FILE, "r") as f:
+            for line in f:
+                note = line.strip()
+                if note:
+                    notes.append(note)
+    except FileNotFoundError:
+        pass
     return notes
 
+def add_note():
+    note = input("Enter your note: ")
+    while re.search(r'\d', note):
+        print("Error: Note should not contain digits")
+        note = input("Enter your note: ")
+    notes.append(note)
 
-# Функція запису нотаток до файлу
-def write_notes(notes):
-    filename = "notes.txt"
-    with open(filename, "w") as file:
-        for note in notes:
-            file.write(note + "\n")
+def display_notes(sort_key):
+    sorted_notes = sorted(notes, key=sort_key)
+    print("\n".join(sorted_notes))
 
+def main():
+    global notes
+    notes = load_notes()
+    print("Welcome to Notes App!")
+    while True:
+        command = input("Enter command (add, earliest, latest, longest, shortest, or save & exit): ")
+        if command == "add":
+            add_note()
+        elif command == "earliest":
+            display_notes(lambda note: notes.index(note))
+        elif command == "latest":
+            display_notes(lambda note: -notes.index(note))
+        elif command == "longest":
+            display_notes(lambda note: len(note))
+        elif command == "shortest":
+            display_notes(lambda note: -len(note))
+        elif command == "save & exit":
+            save_notes(notes)
+            print("Notes saved to file. Exiting...")
+            break
+        else:
+            print("Invalid command. Please try again.")
 
 if __name__ == "__main__":
-    # Зчитуємо нотатки з файлу при запуску програми
-    notes = read_notes()
-
-    # Виводимо вітання та пояснення команд користувачу
-    print("Welcome to the notes app! Available commands: add, earliest, latest, longest, shortest, save & exit")
-    print("Note: you cannot enter numbers.")
-
-    # цикл для обробки команд користувача
-    while True:
-        command = input("Enter command: ")
-
-        # Вихід з програми
-        if command == "save & exit":
-            # Записуємо нотатки до файлу та завершуємо роботу програми
-            write_notes(notes)
-            print("Notes saved to file. Goodbye!")
-            break
-
-        # Додавання нової нотатки
-        elif command == "add":
-            note = input("Enter note: ")
-            # Додаємо нову нотатку до поточної пам'яті
-            notes.append(note)
-            # Додаємо нову нотатку до файлу
-            write_notes(notes)
+    main()
