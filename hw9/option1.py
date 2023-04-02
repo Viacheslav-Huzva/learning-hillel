@@ -1,5 +1,5 @@
-def transform_lines(filename):
-    with open(filename, "r") as f:
+def transform_lines(input):
+    with open(input, "r") as f:
         lines = f.readlines()
 
     transformed_lines = [line.strip("\n").split("a", 1)[-1].capitalize() if "a" in line else "" for line in lines]
