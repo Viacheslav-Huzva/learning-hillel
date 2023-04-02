@@ -1,60 +1,62 @@
-def add_note(notes):
-    """Функція додавання нової нотатки в список notes."""
+notes = []
+
+
+def add_note():
+    """Додавання нотатки"""
     note = input("Enter note: ")
     if not note.isdigit():
         notes.append(note)
     else:
         print("Invalid note.")
+
+
+def show_notes(order_func):
+    """Виведення нотаток у заданому порядку"""
+    sorted_notes = order_func(notes)
+    num_notes = int(input("How many notes do you want to see? "))
+    for note in sorted_notes[:num_notes]:
+        print(note)
+
+
+def order_earliest(notes):
+    """Повертає список нотаток у хронологічному порядку - від найранішої до найпізнішої"""
     return notes
 
 
-def show_earliest(notes):
-    """Функція виведення всіх нотаток в хронологічному порядку (від найранішої до найпізнішої)."""
-    for note in notes:
-        print(note)
+def order_latest(notes):
+    """Повертає список нотаток у хронологічному порядку - від найпізнішої до найранішої"""
+    return reversed(notes)
 
 
-def show_latest(notes):
-    """Функція виведення всіх нотаток в зворотньому хронологічному порядку (від найпізнішої до найранішої)."""
-    for note in reversed(notes):
-        print(note)
+def order_longest(notes):
+    """Повертає список нотаток у порядку їх довжини - від найдовшої до найкоротшої"""
+    return sorted(notes, key=len, reverse=True)
 
 
-def show_longest(notes):
-    """Функція виведення всіх нотаток у порядку їх довжини (від найдовшої до найкоротшої)."""
-    sorted_notes = sorted(notes, key=len, reverse=True)
-    for note in sorted_notes:
-        print(note)
+def order_shortest(notes):
+    """Повертає список нотаток у порядку їх довжини - від найкоротшої до найдовшої"""
+    return sorted(notes, key=len)
 
 
-def show_shortest(notes):
-    """Функція виведення всіх нотаток у порядку їх довжини (від найкоротшої до найдовшої)."""
-    sorted_notes = sorted(notes, key=len)
-    for note in sorted_notes:
-        print(note)
+def exit_program():
+    """Вихід з програми"""
+    print("Exiting program...")
+    quit()
 
 
-def main():
-    """Основна функція програми."""
-    notes = []
-    while True:
-        command = input("Enter command (add/earliest/latest/longest/shortest/exit): ")
-        if command == "add":
-            notes = add_note(notes)
-        elif command == "earliest":
-            show_earliest(notes)
-        elif command == "latest":
-            show_latest(notes)
-        elif command == "longest":
-            show_longest(notes)
-        elif command == "shortest":
-            show_shortest(notes)
-        elif command == "exit":
-            print("Exiting program...")
-            break
-        else:
-            print("Invalid command.")
-
-
-if __name__ == "__main__":
-    main()
+while True:
+    command = input("Enter command (add/earliest/latest/longest/shortest/exit): ")
+    if command == "add":
+        add_note()
+    elif command == "earliest":
+        show_notes(order_earliest)
+    elif command == "latest":
+        show_notes(order_latest)
+    elif command == "longest":
+        show_notes(order_longest)
+    elif command == "shortest":
+        show_notes(order_shortest)
+    elif command == "exit":
+        exit_program()
+    else:
+        print("Invalid command.")
