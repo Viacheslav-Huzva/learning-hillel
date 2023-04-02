@@ -19,29 +19,29 @@ def write_notes(notes):
             file.write(note + "\n")
 
 
-# Зчитуємо нотатки з файлу при запуску програми
-notes = read_notes()
+if __name__ == "__main__":
+    # Зчитуємо нотатки з файлу при запуску програми
+    notes = read_notes()
 
-# Виводимо вітання та пояснення команд користувачу
-print("Welcome to the notes app! Available commands: add, earliest, latest, longest, shortest, save & exit")
-print("Note: you cannot enter numbers.")
+    # Виводимо вітання та пояснення команд користувачу
+    print("Welcome to the notes app! Available commands: add, earliest, latest, longest, shortest, save & exit")
+    print("Note: you cannot enter numbers.")
 
-# цикл для обробки команд користувача
-while True:
-    command = input("Enter command: ")
+    # цикл для обробки команд користувача
+    while True:
+        command = input("Enter command: ")
 
-    # Вихід з програми
-    if command == "save & exit":
-        # Записуємо нотатки до файлу та завершуємо роботу програми
-        write_notes(notes)
-        print("Notes saved to file. Goodbye!")
-        break
+        # Вихід з програми
+        if command == "save & exit":
+            # Записуємо нотатки до файлу та завершуємо роботу програми
+            write_notes(notes)
+            print("Notes saved to file. Goodbye!")
+            break
 
-    # Додавання нової нотатки
-    elif command == "add":
-        note = input("Enter note: ")
-        # Додаємо нову нотатку до поточної пам'яті
-        notes.append(note)
-        # Додаємо нову нотатку до файлу
-        write_notes(notes)
-
+        # Додавання нової нотатки
+        elif command == "add":
+            note = input("Enter note: ")
+            # Додаємо нову нотатку до поточної пам'яті
+            notes.append(note)
+            # Додаємо нову нотатку до файлу
+            write_notes(notes)
